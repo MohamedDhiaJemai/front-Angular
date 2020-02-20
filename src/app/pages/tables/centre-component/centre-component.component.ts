@@ -1,13 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableData } from '../../../@core/data/smart-table';
+import { Centre } from '../../../model/Centre.model';
+import { Subscription } from 'rxjs';
+import { CentreService } from '../../../services/centre/centre.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-centre-component',
   templateUrl: './centre-component.component.html',
   styleUrls: ['./centre-component.component.scss']
 })
-export class CentreComponentComponent{
+export class CentreComponentComponent implements OnInit{
+
+  centres : Centre [];
+  centreSubscription : Subscription;
+
+
+  constructor(private centreService : CentreService, private router: Router, 
+    private service: SmartTableData) {
+
+    const data = this.service.getData();
+    this.source.load(data);
+
+  }
+
+  /***** Affichage des listes de centres lors du refresh *****/
+
+  ngOnInit(){
+    this.centreSubscription = this.centreService.getAllCentre().subscribe(
+      (data)=>{
+        this.centres = data;
+        console.log(data);
+      }
+    )
+  }
+
+  /******* Code Du Template *******/
 
   settings = {
     add: {
@@ -41,11 +70,6 @@ export class CentreComponentComponent{
   };
 
   source: LocalDataSource = new LocalDataSource();
-
-  constructor(private service: SmartTableData) {
-    const data = this.service.getData();
-    this.source.load(data);
-  }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {

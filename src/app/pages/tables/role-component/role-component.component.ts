@@ -1,15 +1,44 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { SmartTableData } from '../../../@core/data/smart-table';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Role } from '../../../model/Role.model';
+import { Subscription } from 'rxjs';
+import { RoleService } from '../../../services/role/role.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-role-component',
   templateUrl: './role-component.component.html',
   styleUrls: ['./role-component.component.scss']
 })
-export class RoleComponentComponent {
+export class RoleComponentComponent implements OnInit{
 
+  roles : Role[];
+  roleSubscription : Subscription;
   
+
+  constructor(private roleService: RoleService, private router:Router,
+    private service: SmartTableData) {
+
+    const data = this.service.getData();
+    this.source.load(data);
+
+  }
+
+  /***** Affichage des listes de roles lors du refresh de la Page *****/
+
+  ngOnInit(){
+    this.roleSubscription = this.roleService.getAllRole().subscribe(
+      (data)=>{
+        this.roles = data;
+        console.log(data);
+      }
+    )
+  }
+
+
+  /***** Affichage des listes de centres lors du refresh *****/
+    
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -43,10 +72,6 @@ export class RoleComponentComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: SmartTableData) {
-    const data = this.service.getData();
-    this.source.load(data);
-  }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {

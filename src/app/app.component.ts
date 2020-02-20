@@ -20,4 +20,5 @@ export class AppComponent implements OnInit {
     this.analytics.trackPageViews();
     this.seoService.trackCanonicalChanges();
   }
+  
 }
