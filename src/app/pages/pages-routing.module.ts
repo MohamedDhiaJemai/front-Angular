@@ -68,9 +68,10 @@ const routes: Routes = [{
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
+    /**** Modification de Dashbord par /auth/lohgin ****/
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: '/auth/login',
       pathMatch: 'full',
     },
     {

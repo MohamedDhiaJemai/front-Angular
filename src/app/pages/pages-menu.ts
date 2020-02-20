@@ -12,6 +12,35 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'home-outline',
     link: '/pages/iot-dashboard',
   },
+
+  {
+    title: 'LOGIN SPACE',
+    group: true,
+  },
+
+  {
+    title: 'Espace Utilisateur',
+    icon: 'lock-outline',
+    children: [
+      {
+        title: 'Login',
+        link: '/auth/login',
+      },
+      /*{
+        title: 'Register',
+        link: '/auth/register',
+      },*/
+      {
+        title: 'Demande Password',
+        link: '/auth/request-password',
+      },
+      {
+        title: 'Reset Password',
+        link: '/auth/reset-password',
+      },
+    ],
+  },
+
   {
     title: 'FEATURES',
     group: true,
@@ -242,26 +271,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   */
-  {
-    title: 'Espace Utilisateur',
-    icon: 'lock-outline',
-    children: [
-     /* {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },*/
-      {
-        title: 'Demande Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
+  
 ];
